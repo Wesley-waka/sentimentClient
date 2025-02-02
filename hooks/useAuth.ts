@@ -2,7 +2,7 @@
 
 import { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -32,7 +32,7 @@ interface LoginResponse {
 }
 
 interface AuthContextType {
-    login: (token: string, user: string,isAdmin: boolean) => void;
+    login: (token: string, user: string, isAdmin: boolean) => void;
     isAuthenticated: false,
     username: string,
     token: null,
@@ -67,10 +67,10 @@ export const useAuth = () => {
             }
 
             if (responseData?.token) {
-                contextLogin(responseData.token, responseData.username,responseData.isAdmin);
-                if(!responseData.isAdmin) {
+                contextLogin(responseData.token, responseData.username, responseData.isAdmin);
+                if (!responseData.isAdmin) {
                     router.push('/user');
-                }else {
+                } else {
                     router.push('/admin');
                 }
                 return true;
@@ -104,11 +104,11 @@ export const useAuth = () => {
 
 
 
-            if(response.ok){
+            if (response.ok) {
                 router.push('/');
                 return true
 
-            }else{
+            } else {
                 throw new Error(responseData.msg || 'Login failed');
 
             }
