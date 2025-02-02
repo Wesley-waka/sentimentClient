@@ -213,7 +213,7 @@ export default function Home() {
 
             {/* Forgot Password Links Start */}
             <section className="text-sm text-center flex flex-row space-x-2">
-              <p>You Don't have an account?</p>
+              <p>You Don&apos;t have an account?</p>
               <Link href="/Sign" className="font-medium text-blue-600 hover:text-blue-500">
                 Sign Up
               </Link>
