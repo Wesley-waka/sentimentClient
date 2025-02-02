@@ -1,0 +1,32 @@
+// Tailwind Start
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Base
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/reset';
+@import 'base/typography';
+
+
+// Components
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/cards';
+@import 'components/navbar';
+@import 'components/datatable';
+@import 'components/card';
+@import 'components/dialog';
+@import 'components/paginator';
+@import 'components/treetable';
+
+// Layouts
+@import 'layouts/header';
+@import 'layouts/footer';
+@import 'layouts/sidebar';
+@import 'layouts/dashboard';
+
+// Pages
+@import 'pages/home';
+@import 'pages/about';

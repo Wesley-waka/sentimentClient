@@ -1,0 +1,22 @@
+@import "../base/variables";
+
+.p-datatable {
+  
+  
+  .p-datatable-thead {
+    >tr {
+      >th {
+        background-color: #edf0fd !important;
+        font-size: 13.6px;
+      }
+    }
+  }
+
+  .p-datatable-tbody {
+    >tr {
+      >td {
+        font-size: 13.6px;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+
+  &__main {
+    flex: 1;
+  }
+
+  &__content {
+    padding: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar ~ &__main {
+      margin-left: 0;
+    }
+  }
+}
