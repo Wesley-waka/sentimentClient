@@ -1,7 +1,6 @@
 'use client';
 
 import '../styles/main.scss';
-import { DashboardLayout } from "../layouts/DashboardLayouts";
 import { AuthProvider } from '../../context/AuthContext';
 import 'primeflex/primeflex.css';
 import 'primereact/resources/primereact.css';

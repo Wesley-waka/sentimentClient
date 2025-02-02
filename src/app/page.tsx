@@ -28,7 +28,8 @@ export default function Home() {
 
   const handleConnect = (contractAddress: string): void => {
     //TODO: set the wallet address to the use context instead
-    setWalletAddress(contractAddress)
+    setWalletAddress(contractAddress);
+    console.log(walletAddress, 'walletAddress')
   }
 
   return (

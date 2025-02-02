@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {useAuth} from "@/hooks/useAuth";
 
 const navigationItems = [
   // {
@@ -54,14 +53,14 @@ const navigationItems = [
     href: '/admin/',
     label: 'All Reviews',
     icon: (
-        <Image src='/dislike.png' alt='like' width={30} height={30} />
+      <Image src='/dislike.png' alt='like' width={30} height={30} />
     )
   },
   {
     href: '/admin/neutral',
     label: 'Neutral Reviews',
     icon: (
-        <Image src='/neutralDash.png' alt='like' width={30} height={30} />
+      <Image src='/neutralDash.png' alt='like' width={30} height={30} />
     )
   },
   {
@@ -75,7 +74,7 @@ const navigationItems = [
     href: '/admin/negative',
     label: 'Negative Reviews',
     icon: (
-        <Image src='/dislike.png' alt='like' width={30} height={30} />
+      <Image src='/dislike.png' alt='like' width={30} height={30} />
     )
   }
 ];
@@ -123,20 +122,20 @@ export default function Sidebar() {
           <div className="flex items-center gap-2">
             {/* GOK Logo Start */}
             <div className="relative">
-                    <Image
-                      src="/logo.png"
-                      alt="GOK Logo"
-                      width={40}
-                      height={40}
-                      priority
-                      className="object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105"
-                    />
-                    <div className="absolute top-0 -right-1 h-full flex">
-                    <div className="w-[1px] h-full bg-black"></div>
-                      <div className="w-[1px] h-full bg-red-600"></div>
-                      <div className="w-[1px] h-full bg-green-600"></div>
-                    </div>
-                  </div>
+              <Image
+                src="/logo.png"
+                alt="GOK Logo"
+                width={40}
+                height={40}
+                priority
+                className="object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105"
+              />
+              <div className="absolute top-0 -right-1 h-full flex">
+                <div className="w-[1px] h-full bg-black"></div>
+                <div className="w-[1px] h-full bg-red-600"></div>
+                <div className="w-[1px] h-full bg-green-600"></div>
+              </div>
+            </div>
             {/* GOK Logo End */}
 
             {/* GoK Text Start */}
