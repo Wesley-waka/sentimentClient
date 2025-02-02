@@ -1,44 +1,31 @@
-import { useState } from 'react';
-import Web3 from 'web3';
+'use client';
 
-interface Props {
-  onConnect: (a: string) => void;
+import '../styles/main.scss';
+import { DashboardLayout } from "@/layouts/DashboardLayouts";
+import { AuthProvider } from '@/context/AuthContext';
+import 'primeflex/primeflex.css';
+import 'primereact/resources/primereact.css';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import { PrimeReactProvider } from 'primereact/api';
+import { ReactNode } from "react";
+
+interface RootLayoutProps {
+  children: ReactNode;
 }
 
-const ConnectWallet = ({ onConnect }: Props) => {
-  const [walletAddress, setWalletAddress] = useState('');
-
-  const connectMetaMask = async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    if (window.ethereum) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      const web3 = new Web3(window.ethereum);
-      try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const accounts = await web3.eth.getAccounts();
-        setWalletAddress(accounts[0]);
-        onConnect(accounts[0]); // Pass the connected wallet address to the parent component
-      } catch (error) {
-        console.error('User denied account access or error occurred:', error);
-      }
-    } else {
-      alert('Please install MetaMask!');
-    }
-  };
-
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <div>
-      {walletAddress ? (
-        <p>Connected: {walletAddress}</p>
-      ) : (
-        <button onClick={connectMetaMask}>Connect Wallet</button>
-      )}
-    </div>
+    <html lang="en">
+      <body>
+        <AuthProvider>
+          <PrimeReactProvider>
+            {/*<DashboardLayout>*/}
+            {children}
+            {/*</DashboardLayout>*/}
+          </PrimeReactProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
-};
-
-export default ConnectWallet;
+}
