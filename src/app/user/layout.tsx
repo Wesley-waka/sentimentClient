@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import TopBar from "@/layouts/DashboardLayouts/TopBar";
+import TopBar from "../../layouts/DashboardLayouts/TopBar";
 
 
 interface RootLayoutProps {

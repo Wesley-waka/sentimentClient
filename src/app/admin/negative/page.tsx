@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Rating } from "primereact/rating";
-import { useMessage } from "@/hooks/useMessage";
+import { useMessage } from "../../../../hooks/useMessage";
 import { format } from "date-fns";
 
 export default function AdminNegativePage() {

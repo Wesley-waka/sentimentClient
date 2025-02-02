@@ -1,10 +1,10 @@
 'use client';
 import Image from 'next/image';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useState } from 'react';
 import Link from "next/link";
-import ConnectWalletButton from '@/components/web3Wallet/ConnectWalletButton'
+import ConnectWalletButton from '../../components/web3Wallet/ConnectWalletButton'
 
 export default function Home() {
   const { login, loading, error } = useAuth();

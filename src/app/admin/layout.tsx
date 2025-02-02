@@ -1,4 +1,4 @@
-import Sidebar from '@/layouts/DashboardLayouts/Sidebar';
+import Sidebar from '../../layouts/DashboardLayouts/Sidebar';
 import { ReactNode } from "react";
 
 

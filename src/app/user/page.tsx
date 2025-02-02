@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState, useContext } from 'react';
-import { useMessage } from '@/hooks/useMessage';
+import { useMessage } from '../../../hooks/useMessage';
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
-import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '../../../context/AuthContext';
 import { Rating } from "primereact/rating";
 import Image from "next/image";
 import { format } from 'date-fns';
