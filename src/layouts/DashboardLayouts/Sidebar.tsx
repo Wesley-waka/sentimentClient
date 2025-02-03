@@ -53,7 +53,7 @@ const navigationItems = [
     href: '/admin/',
     label: 'All Reviews',
     icon: (
-      <Image src='/dislike.png' alt='like' width={30} height={30} />
+      <Image src='/review.png' alt='like' width={30} height={30} />
     )
   },
   {
