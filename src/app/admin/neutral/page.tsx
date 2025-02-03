@@ -92,10 +92,9 @@ export default function AdminNeutralPage() {
           </li>
           <div className="flex flex-row justify-between">
             <Rating value={calculateRating(msg.sentiments[0].score)} readOnly cancel={false} />
-            <div>{msg.sentiments[0].score}</div>
+            <div>{msg.sentiments[0].score * 100} %</div>
           </div>
           {emojiType(msg.sentiments[0].vote)}
-          <div>{msg.sentiments[0].score}</div>
 
         </div >
       ))}

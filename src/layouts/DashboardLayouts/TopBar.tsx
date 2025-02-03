@@ -1,14 +1,20 @@
 // Imports Start
 'use client'
 import Image from 'next/image';
-import Link from 'next/link';
+import {Button} from "primereact/button";
+import {useContext} from "react";
+import {AuthContext} from "../../../context/AuthContext";
 
 
 // Imports End
 
 const TopBar = () => {
-
+  const {logout} = useContext(AuthContext);
   // const currentDateTime = useDateTime()
+  const handleLogOut = async () => {
+    await logout();
+  };
+
 
 
   return (
@@ -38,7 +44,10 @@ const TopBar = () => {
           {/* Date Time Display End */}
 
           {/* Notifications Bell Start */}
-          <Link href='/' className="relative text-blue-600 hover:text-blue-700 transition-colors duration-200">
+          <Button onClick={(e) => {
+            e.preventDefault();
+            handleLogOut();
+          }} className="relative text-blue-600 hover:text-blue-700 transition-colors duration-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -55,7 +64,7 @@ const TopBar = () => {
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
             Log Out
-          </Link>
+          </Button>
           {/* Notifications Bell End */}
         </section>
         {/* Date && Notification End */}

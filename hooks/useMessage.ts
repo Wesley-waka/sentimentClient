@@ -1,4 +1,5 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 interface Sentiment{
     type: string;
@@ -31,25 +32,24 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const useMessage = () => {
 
-    const [loading, setLoading] = useState<boolean>(false);
+
     const [error, setError] = useState<string>('');
     const [messages,setMessages] = useState<Message[]>([]);
+    const { token } = useContext(AuthContext)
+    const [loadingMessages, setLoadingMessages] = useState<boolean>(false);
+    const [loadingSend, setLoadingSend] = useState<boolean>(false);
 
 
-    const sendMessage = async (message: string,name: string) => {
-
+    const sendMessage = async (message: string) => {
         try {
-            const params = {
-                name: name,
-            };
-
-            const queryString = new URLSearchParams(params).toString();
+            setLoadingSend(true);
 
 
-            const response = await fetch(`${BASE_URL}/api/feedback/create?${queryString}`, {
+            const response = await fetch(`${BASE_URL}/api/feedback/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     message: message
@@ -75,7 +75,7 @@ export const useMessage = () => {
             setError(error instanceof Error ? error.message : 'Something went wrong');
             return false;
         }finally{
-            setLoading(false);
+            setLoadingSend(false);
         }
         ;
 
@@ -83,19 +83,17 @@ export const useMessage = () => {
     }
 
 
-    const getAllMessages = async(name: string) =>{
-
+    const getAllMessages = async() =>{
+        console.log(token,'this is our token')
         try{
+            setLoadingMessages(true);
 
-            const params = {
-                name: name,
-            };
 
-            const queryString = new URLSearchParams(params).toString();
-
-            const response = await fetch(`${BASE_URL}/api/feedback/get?${queryString}`, {
+            const response = await fetch(`${BASE_URL}/api/feedback/get`, {
                 method: 'GET',
-                headers: {},
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             const data = await response.json();
@@ -106,11 +104,15 @@ export const useMessage = () => {
             console.error('Login Error:', error);
             setError(error instanceof Error ? error.message : 'Something went wrong');
             return false;
+        }finally {
+                setLoadingMessages(false);
         }
     }
 
     const getAdminMessages = async(sentimentType: string = '')=>{
         try{
+            setLoadingMessages(true);
+
 
             const params = {
                 vote: sentimentType,
@@ -120,7 +122,9 @@ export const useMessage = () => {
 
             const response = await fetch(`${BASE_URL}/api/feedback/all?${queryString}`, {
                 method: 'GET',
-                headers: {},
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             const data = await response.json();
@@ -131,16 +135,19 @@ export const useMessage = () => {
             console.error('Login Error:', error);
             setError(error instanceof Error ? error.message : 'Something went wrong');
             return false;
+        }finally{
+            setLoadingMessages(false);
         }
     }
 
     return {
         sendMessage,
-        loading,
         error,
         messages,
         getAllMessages,
-        getAdminMessages
+        getAdminMessages,
+        loadingMessages,
+        loadingSend
     };
 
 

@@ -44,7 +44,7 @@ export const useAuth = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const router = useRouter();
-    const { login: contextLogin } = useContext(AuthContext) as AuthContextType;
+    const { login: contextLogin,token } = useContext(AuthContext) as AuthContextType;
 
     const login = async (credentials: Credentials): Promise<boolean> => {
         try {
@@ -121,28 +121,29 @@ export const useAuth = () => {
         }
     };
 
-    // const logOut = async (): Promise<void> => {
-    //     try {
-    //         setLoading(true);
-    //         // Optional: Call logout endpoint if you need to invalidate the token on the server
-    //         // await fetch(`${BASE_URL}/api/auth/logout`, {
-    //         //     method: 'POST',
-    //         //     headers: {
-    //         //         'Content-Type': 'application/json',
-    //         //     }
-    //         // });
-    //
-    //         // Call the context logout function to clear the auth state
-    //
-    //         // Redirect to home page
-    //         router.push('/');
-    //     } catch (error) {
-    //         console.error('Logout Error:', error);
-    //         setError(error instanceof Error ? error.message : 'Something went wrong during logout');
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
+    const logOut = async (): Promise<void> => {
+        try {
+            setLoading(true);
+            // Optional: Call logout endpoint if you need to invalidate the token on the server
+            await fetch(`${BASE_URL}/api/auth/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
+            // Call the context logout function to clear the auth state
+
+            // Redirect to home page
+            router.push('/');
+        } catch (error) {
+            console.error('Logout Error:', error);
+            setError(error instanceof Error ? error.message : 'Something went wrong during logout');
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
     return {
@@ -150,5 +151,6 @@ export const useAuth = () => {
         loading,
         error,
         signUp,
+        logOut
     };
 };

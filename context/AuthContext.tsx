@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 
-const BASE_URL: string = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -48,32 +47,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const checkAuth = async () => {
         try {
             const token = localStorage.getItem('token');
-            if (token) {
-                const response = await fetch(`${BASE_URL}/api/auth/verify`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    setAuth(prev => ({
-                        ...prev,
-                        isAuthenticated: true,
-                        user: data.user,
-                        token,
-                        loading: false
-                    }));
-                } else {
-                    throw new Error('Invalid token');
-                }
-            } else {
-                // router.push('/');
-                setAuth(prev => ({
-                    ...prev,
-                    loading: false
-                }));
+            if(!token){
+                router.push('/')
             }
+            // if (token) {
+            //     const response = await fetch(`${BASE_URL}/api/auth/verify`, {
+            //         headers: {
+            //             'Authorization': `Bearer ${token}`
+            //         }
+            //     });
+            //
+            //     if (response.ok) {
+            //         const data = await response.json();
+            //         setAuth(prev => ({
+            //             ...prev,
+            //             isAuthenticated: true,
+            //             user: data.user,
+            //             token,
+            //             loading: false
+            //         }));
+            //     } else {
+            //         throw new Error('Invalid token');
+            //     }
+            // } else {
+            //     router.push('/');
+            //     setAuth(prev => ({
+            //         ...prev,
+            //         loading: false
+            //     }));
+            // }
         } catch (error) {
             console.error('Auth Check Error:', error);
             localStorage.removeItem('token');
@@ -98,31 +100,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         });
     };
 
-    const logout = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (token) {
-                await fetch(`${BASE_URL}/api/auth/logout`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-            }
-        } catch (error) {
-            console.error('Logout error:', error);
-        } finally {
-            localStorage.removeItem('token');
-            setAuth({
-                isAuthenticated: false,
-                username: '',
-                token: null,
-                loading: false,
-                isAdmin: false
-            });
-            router.push('/login');
-        }
+    const logout = async (): Promise<void> => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        setAuth({
+            isAuthenticated: false,
+            username: '',
+            token: null,
+            loading: false,
+            isAdmin: false
+        });
+        router.push('/');
     };
 
     return (

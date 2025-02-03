@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useState } from 'react';
 import Link from "next/link";
-import ConnectWalletButton from '../../components/web3Wallet/ConnectWalletButton'
+import ConnectWalletButton from '../../components/web3Wallet/ConnectWalletButton';
 
 export default function Home() {
   const { login, loading, error } = useAuth();
@@ -208,6 +208,13 @@ export default function Home() {
               </div>
             </form>
             {/* Form End*/}
+
+            <div className="w-full w-full flex flex-row justify-center">
+              {/*<Divider layout="horizontal" className="hidden md:flex">*/}
+                <div>OR</div>
+              {/*</Divider>*/}
+
+            </div>
 
             <ConnectWalletButton onConnect={handleConnect} />
 

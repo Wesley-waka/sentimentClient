@@ -80,7 +80,7 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="flex flex-col items-center space-y-1">
                   <p className="text-sm text-gray-600">
-                    Please sign in to submit your Sentiment
+                    Please sign up to submit your Sentiment
                   </p>
 
                 </div>
@@ -195,7 +195,7 @@ export default function Home() {
                       Signing in...
                     </div>
                   ) : (
-                    'Sign in'
+                    'Sign up'
                   )}
                 </button>
               </div>

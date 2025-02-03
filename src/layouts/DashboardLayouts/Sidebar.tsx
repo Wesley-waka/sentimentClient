@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import {Button} from "primereact/button";
+import {AuthContext} from "../../../context/AuthContext";
 
 const navigationItems = [
   // {
@@ -94,6 +96,12 @@ export default function Sidebar() {
     setSidebarOpen(!isSidebarOpen);
   };
   // Toggle SideBar End
+  const {logout} = useContext(AuthContext);
+
+
+  const handleLogOut = async () => {
+    await logout();
+  };
 
   return (
     <>
@@ -169,10 +177,13 @@ export default function Sidebar() {
 
         {/* Logout Section Start */}
         <div className="mt-auto border-t border-gray-100">
-          <Link
-            href="/"
+          <Button
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogOut();
+                setSidebarOpen(false)
+              }}
             className="flex items-center px-6 py-4 text-[#1e1e1e] hover:bg-gray-50 transition-colors duration-200"
-            onClick={() => setSidebarOpen(false)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +201,7 @@ export default function Sidebar() {
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
             <span className="ml-2 text-[13.6px]">Logout</span>
-          </Link>
+          </Button>
         </div>
         {/* Logout Section End */}
       </aside>
